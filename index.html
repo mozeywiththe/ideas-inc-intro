@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ideas.inc — by Hampus Winquist</title>
+  <meta name="description" content="ideas.inc — a place for all of Hampus Winquist's business ideas.">
+  <meta name="theme-color" content="#0B0A0D">
+  <meta property="og:image" content="media/endcard-landscape.jpg">
+  <link rel="preload" href="fonts/MonaSans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+  <script>
+    // Decide before first paint whether the intro plays, so there is no flash of the site.
+    (function () {
+      var d = document.documentElement, q = location.search;
+      var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (/[?&]reduced=1/.test(q)) reduce = true;
+      var seen = false;
+      try { seen = sessionStorage.getItem("ideasinc-intro-seen") === "1"; } catch (e) {}
+      if (/[?&]intro=1/.test(q)) seen = false;
+      d.classList.add(reduce ? "reduced" : "motion");
+      d.classList.add(!reduce && !seen ? "intro-pending" : "site-ready");
+    })();
+  </script>
+</head>
+<body>
+  <!-- Intro overlay: the video sits on the exact page background, letterboxed with object-fit: contain -->
+  <div id="intro" class="intro" aria-hidden="true">
+    <video id="intro-video" muted playsinline preload="auto" disablepictureinpicture></video>
+    <button id="sound" class="skip sound" type="button" aria-pressed="false">Sound off</button>
+    <button id="skip" class="skip" type="button" aria-label="Skip intro">Skip intro <span aria-hidden="true">→</span></button>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="logo" href="#top" aria-label="ideas.inc home">ideas<span class="logo-dot" aria-hidden="true"></span>inc</a>
+    <nav aria-label="Main">
+      <a href="#ideas">Ideas</a>
+      <button id="replay" class="replay" type="button">Replay intro</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="sr-only">ideas.inc — by Hampus Winquist</h1>
+      <!-- same outlines as the last video frame, same object-fit, so the intro lands exactly here -->
+      <picture class="hero-card">
+        <source media="(max-aspect-ratio: 4/5)" srcset="media/endcard-portrait.svg">
+        <img src="media/endcard-landscape.svg" alt="" width="1920" height="1080" decoding="sync" fetchpriority="high">
+      </picture>
+      <a class="scroll-cue" href="#ideas"><span>Scroll</span><i aria-hidden="true"></i></a>
+    </section>
+
+    <section id="ideas" class="ideas" aria-labelledby="ideas-title">
+      <div class="ideas-head">
+        <p class="mono">FIG. 05 — ALL OF THEM</p>
+        <h2 id="ideas-title">The ideas</h2>
+        <p class="lede placeholder-note">Placeholder content. Replace these cards with Hampus's real ideas.</p>
+      </div>
+      <ol class="grid" id="grid"></ol>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© Hampus Winquist</span>
+    <span class="mono">IDEAS.INC</span>
+  </footer>
+
+  <script src="js/intro.js"></script>
+</body>
+</html>
